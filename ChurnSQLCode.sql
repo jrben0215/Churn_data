@@ -42,6 +42,8 @@ select count(customerid) as total_customers
 
 from customers
 
+-- churn rate by tenure (binned)
+	
 select count(customerid) as total_customers
 , count(churn) filter (where churn = 'Yes') as total_churned
 , round(100.0 * count(churn) filter (where churn = 'Yes') / count(customerid), 2) as overall_churn_rate
@@ -57,6 +59,8 @@ from customers
 group by tenure_group_in_weeks
 
 order by overall_churn_rate desc
+
+-- Churn rate by monthly charges
 
 select count(customerid) as total_customers
 , count(churn) filter (where churn = 'Yes') as total_churned
@@ -75,6 +79,8 @@ group by monthly_charges
 
 order by overall_churn_rate desc
 
+-- churn rate by payment method
+
 select count(customerid) as total_customers
 , count(churn) filter (where churn = 'Yes') as total_churned
 , round(100.0 * count(churn) filter (where churn = 'Yes') / count(customerid), 2) as overall_churn_rate
@@ -85,6 +91,8 @@ from customers
 group by paymentmethod
 
 order by overall_churn_rate desc
+
+--churn rate by contract and payment method
 
 select count(customerid) as total_customers
 , count(churn) filter (where churn = 'Yes') as total_churned
@@ -99,6 +107,8 @@ group by contract
 
 order by overall_churn_rate desc
 
+-- churn rate by tenure (unbinned)
+	
 select count(customerid) as total_customers
 , count(churn) filter (where churn = 'Yes') as total_churned
 , round(100.0 * count(churn) filter (where churn = 'Yes') / count(customerid), 2) as overall_churn_rate
@@ -109,5 +119,6 @@ from customers
 where tenure <> 0
 
 group by tenure
+
 
 order by tenure asc
